@@ -1,4 +1,4 @@
-import mysql from "mysql2/promise";
+import mysql from "mysql2";
 import "dotenv/config";
 const env = process.env;
 
@@ -10,12 +10,15 @@ const dbConfig = {
   database: env.DB_DATABASE,
 };
 
-export async function createDbConnection() {
+export function createDbConnection() {
   let connection;
   try {
-    connection = await mysql.createConnection(dbConfig);
+    connection = mysql.createConnection(dbConfig);
+
   } catch (e) {
     throw Error("createDbConnection error", { cause: e });
   }
+  console.log('MySQL database connection created!');
   return connection;
+
 }
